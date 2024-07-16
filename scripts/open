@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -e /usr/bin/open ]; then
+	exec /usr/bin/open "$@"
+else
+	echo "Open $1"
+	echo "Press return to continue"
+	read NONE
+fi

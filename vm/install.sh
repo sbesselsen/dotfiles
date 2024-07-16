@@ -7,6 +7,7 @@ mkdir -p ~/.local/bin
 
 # zsh
 sudo apt install zsh
+sudo chsh -s /usr/bin/zsh sbesselsen
 
 # Git config
 "$DIR/../install/gitconfig.sh"
@@ -35,7 +36,7 @@ batcat cache --build
 sudo apt install --no-install-recommends php-cli 
 
 # Rust
-if ! which rustup >/dev/null; then
+if [ ! -e "$HOME/.cargo" ]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	. "$HOME/.cargo/env"
 fi

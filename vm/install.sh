@@ -5,9 +5,15 @@ sudo apt update
 
 mkdir -p ~/.local/bin
 
+# zsh
+sudo apt install zsh
+
+# Git config
+"$DIR/../install/gitconfig.sh"
+
 # Github stuff
 sudo apt install gh
-gh auth login
+gh auth status | grep "Logged in" || gh auth login
 
 # btop
 sudo apt install btop
@@ -24,6 +30,19 @@ sudo chown -R sbesselsen "$BAT_DIR"
 rsync -a "$DIR/themes/catppuccin/bat/" "$BAT_DIR/themes"
 echo '--theme="Catppuccin Frappe"' >> "$(batcat --config-file)"
 batcat cache --build
+
+# php (for personal shell scripts)
+sudo apt install --no-install-recommends php-cli 
+
+# Rust
+if ! which rustup >/dev/null; then
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	. "$HOME/.cargo/env"
+fi
+
+# gitui
+sudo apt install gcc libssl-dev make # needed to build gitui/openssl
+cargo install gitui --locked
 
 echo "Run hash -r to update your PATH"
 

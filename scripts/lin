@@ -1,0 +1,102 @@
+#!/usr/bin/env php
+<?php
+
+$stderr = fopen('php://stderr', 'w');
+
+main($_SERVER['argv']);
+
+function main($args) {
+    $points = $args;
+    array_shift($points);
+    if (count($points) < 2) {
+        throw new Exception("Not enough points to linearize");
+    }
+
+    $p1 = parse_point(array_shift($points));
+    $p2 = parse_point(array_shift($points));
+
+    if ($p1[0] == $p2[0]) {
+        throw new Exception("First x coordinate is equal to the second");
+    }
+
+    $slope = ($p2[1] - $p1[1]) / ($p2[0] - $p1[0]);
+    $intercept = $p1[1] - ($p1[0] * $slope);
+
+    // Simplify
+    list ($div, $slope, $intercept) = simplify_slope_intercept($slope, $intercept);
+
+    $output = slope_intercept($slope, $intercept);
+    if ($div != 1) {
+        $output = "({$output}) / {$div}";
+    }
+
+    // Check
+    check_point($p1, $div, $slope, $intercept);
+    check_point($p2, $div, $slope, $intercept);
+    while ($points) {
+        $p = parse_point(array_shift($points));
+        check_point($p, $div, $slope, $intercept);
+    }
+
+    // Output
+    echo "{$output}\n";
+}
+
+function check_point($p, $div, $slope, $intercept) {
+    list ($x, $y) = $p;
+    if (abs($y - ($intercept + $slope * $x) / $div) > 0.0001) {
+        throw new Exception("Point {$x}/{$y} is not on the line");
+    }
+}
+
+function simplify_slope_intercept($slope, $intercept) {
+    if ($slope == floor($slope) || $intercept == floor($intercept)) {
+        return [1, $slope, $intercept];
+    }
+    $slope_recip = 1 / ($slope - floor($slope));
+    $intercept_recip = 1 / ($intercept - floor($intercept));
+    $round_slope_recip = round($slope_recip);
+    $round_intercept_recip = round($intercept_recip);
+    if (abs($slope_recip - $round_slope_recip) > 0.0001 || abs($intercept_recip - $round_intercept_recip) > 0.0001) {
+        return [1, $slope, $intercept];
+    }
+    $gcd = gcd($round_slope_recip, $round_intercept_recip);
+    if ($gcd == 1) {
+        return [1, $slope, $intercept];
+    }
+    return [$gcd, $slope * $gcd, $intercept * $gcd];
+}
+
+function gcd($a,$b) {
+    return ($a % $b) ? gcd($b,$a % $b) : $b;
+}
+
+function slope_intercept($slope, $intercept) {
+    if ($slope == 0) {
+        return "{$intercept}";
+    }
+    $slope_mul = $slope == 1 ? "" : "{$slope} * ";
+    if ($intercept == 0) {
+        return "{$slope_mul}input";
+    } else if ($intercept < 0) {
+        $neg_intercept = -$intercept;
+        return "{$slope_mul}input - {$neg_intercept}";
+    } else {
+        return "{$slope_mul}input + {$intercept}";
+    }
+}
+
+function parse_point($p) {
+    $parts = explode("=", $p);
+    if (count($parts) != 2) {
+        throw new Exception("Invalid point: {$p}");
+    }
+    list ($x, $y) = $parts;
+    return [(double)$x, (double)$y];
+}
+
+
+function stderr_log($msg) {
+    global $stderr;
+    fwrite($stderr, $msg . "\n");
+}

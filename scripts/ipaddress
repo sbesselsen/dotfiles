@@ -1,0 +1,5 @@
+#!/usr/bin/env php
+<?php
+$data = json_decode(file_get_contents("http://ipinfo.io"));
+$ip = $data->ip;
+echo "$ip\n";

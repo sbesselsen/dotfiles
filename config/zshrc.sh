@@ -39,5 +39,8 @@ eval "$(zoxide init zsh)"
 # asdf to manage versions
 . "$HOME/.asdf/asdf.sh"
 
-# Lima needs this
-export PATH="$PATH:/usr/sbin:/sbin"
+# Lima BEGIN
+# Make sure iptables and mount.fuse3 are available
+PATH="$PATH:/usr/sbin:/sbin"
+export PATH
+# Lima END

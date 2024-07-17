@@ -14,4 +14,6 @@ gh auth status | grep "Logged in" || gh auth login
 
 "$DIR/../install/gitconfig.sh"
 "$DIR/../install/themes.sh"
+"$DIR/../install/config.sh"
+"$DIR/../install/awscli.sh"
 

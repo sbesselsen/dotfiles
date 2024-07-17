@@ -1,6 +1,5 @@
 # User configuration
-alias kns="kubie ns"
-alias kctx="kubie ctx"
+alias k='kubectl'
 alias awsenv='asp'
 alias awscreds='eval $(aws-temp-creds)'
 alias ls='eza'

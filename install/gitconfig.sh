@@ -9,7 +9,7 @@ fi
 if [ -z "$GIT_EMAIL" ]; then
  	echo "Git email?"
 	read GIT_EMAIL
-	git config --global user.name "$GIT_EMAIL"
+	git config --global user.email "$GIT_EMAIL"
 fi
 
 git config --global alias.lg "log --graph --date-order -C -M --pretty=format:\"%C(224) %h  %an 󰃭 %ad%C(183)%d %C(reset)%s\" --all --date=short"

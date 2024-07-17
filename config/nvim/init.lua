@@ -17,3 +17,16 @@ vim.wo.relativenumber = true
 if vim.g.neovide then
 	vim.g.neovide_scroll_animation_length = 0.1
 end
+
+-- Copy over SSH
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}

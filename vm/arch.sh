@@ -2,7 +2,7 @@
 DIR="$(dirname $0)"
 
 sudo pacman -Syu
-sudo pacman -S neovim zsh git github-cli btop bat php rustup starship rsync gitui extra/unzip
+sudo pacman -S neovim zsh git github-cli btop bat php rustup starship rsync gitui extra/unzip extra/eza zoxide extra/tldr
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 . "$HOME/.asdf/asdf.sh"

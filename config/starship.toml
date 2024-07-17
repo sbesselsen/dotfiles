@@ -3,7 +3,7 @@ palette = "catppuccin_frappe"
 format = """
 $cmd_duration\
 [╭](bold black) $username\
-$os\
+$os \
 $directory\
 $fill\
 $git_branch\

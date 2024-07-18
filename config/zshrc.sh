@@ -7,6 +7,7 @@ alias man='tldr'
 alias cd='z'
 alias cat='bat'
 alias vi='nvim'
+alias docker='nerdctl'
 
 cdr() {
   root_dir="$(git rev-parse --show-toplevel)"
@@ -24,6 +25,7 @@ export EDITOR=nvim
 # Bind Ctrl+A and Ctrl+E
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
+bindkey "^[[3~" delete-char
 
 function kctxreset() {
   for VAR in $(env | grep KUBIE_ | sed 's/=.*$//'); do

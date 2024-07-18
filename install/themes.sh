@@ -11,3 +11,5 @@ sudo chown -R sbesselsen "$BAT_DIR"
 rsync -a "$DIR/themes/catppuccin/bat/" "$BAT_DIR/themes"
 echo '--theme="Catppuccin Frappe"' >> "$(bat --config-file)"
 bat cache --build
+
+rsync -a "$DIR/themes/catppuccin/k9s/" ~/.config/k9s/skins

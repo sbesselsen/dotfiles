@@ -8,6 +8,8 @@ alias cd='z'
 alias cat='bat'
 alias vi='nvim'
 alias docker='nerdctl'
+alias kns='kubie ns'
+alias kctx='kubie ctx'
 
 cdr() {
   root_dir="$(git rev-parse --show-toplevel)"

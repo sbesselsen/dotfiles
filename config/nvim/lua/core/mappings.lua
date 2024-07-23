@@ -40,7 +40,12 @@ vim.keymap.set("i", "<C-CR>", 'copilot#Accept("\\<CR>")', {
 vim.g.copilot_no_tab_map = true
 
 vim.keymap.set("v", "//", [[y/\V<C-R>=escape(@",'/')<CR><CR>]], { desc = "Search selected text" })
-vim.keymap.set("v", "/s", [[y:%s/\V<C-R>"//gc<Left><Left><Left>]], { desc = "Replace selected text" })
-vim.keymap.set("n", "/s", [[yiw:%s/\V<C-R>"//gc<Left><Left><Left>]], { desc = "Replace current word" })
+vim.keymap.set("v", "/s", [[y:%s/\V<C-R>=escape(@",'/')<CR>//gc<Left><Left><Left>]], { desc = "Replace selected text" })
+vim.keymap.set(
+	"n",
+	"/s",
+	[[yiw:%s/\V<C-R>=escape(@",'/')<CR>//gc<Left><Left><Left>]],
+	{ desc = "Replace current word" }
+)
 vim.keymap.set("v", "/c", [[y:%S/<C-R>"//gc<Left><Left><Left>]], { desc = "Replace selected text, preserve case" })
 vim.keymap.set("n", "/c", [[yiw:%S/<C-R>"//gc<Left><Left><Left>]], { desc = "Replace current word, preserve case" })

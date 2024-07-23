@@ -20,4 +20,5 @@ gh auth status | grep "Logged in" || gh auth login
 "$DIR/../install/themes.sh"
 "$DIR/../install/config.sh"
 "$DIR/../install/awscli.sh"
+"$DIR/../install/k3s.sh"
 
